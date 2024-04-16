@@ -54,7 +54,6 @@ namespace GestaoEquipamentos.ConsoleApp
                         Console.WriteLine("Recurso ainda não disponível");
                         Console.ReadLine();
                         continue;
-                    break;
                 }
             }
         }
