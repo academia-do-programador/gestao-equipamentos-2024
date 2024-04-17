@@ -7,6 +7,9 @@
 
         static void Main(string[] args)
         {
+            equipamentos[contadorEquipamentosCadastrados++] =
+                new Equipamento("Notebook", "AEX-120", "Acer", 2000.00m, DateTime.Now);
+
             bool opcaoSairEscolhida = false;
 
             while(!opcaoSairEscolhida)
@@ -57,6 +60,8 @@
 
             Console.WriteLine("S - Voltar");
 
+            Console.WriteLine();
+
             Console.Write("Escolha uma das opções: ");
             char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
 
@@ -65,7 +70,7 @@
                 case '1': CadastrarEquipamento(); break;
                 case '2': break;
                 case '3': break;
-                case '4': break;
+                case '4': VisualizarEquipamentos(); break;
 
                 default: break;
             }
@@ -113,6 +118,41 @@
             Console.WriteLine("O equipamento foi cadastrado com sucesso!");
 
             Console.ResetColor();
+
+            Console.ReadLine();
+        }
+
+        static void VisualizarEquipamentos()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine("|        Gestão de Equipamentos        |");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine("Visualizando Equipamentos...");
+
+            Console.WriteLine();
+
+            Console.WriteLine(
+                "{0, -10} | {1, -15} | {2, -15} | {3, -10} | {4, -10}",
+                "Id", "Nome", "Fabricante", "Preço", "Data de Fabricação"
+            );
+
+            for (int i = 0; i < equipamentos.Length; i++) 
+            {
+                Equipamento e = equipamentos[i];
+
+                if (e == null)
+                    continue;
+
+                Console.WriteLine(
+                    "{0, -10} | {1, -15} | {2, -15} | {3, -10} | {4, -10}",
+                    e.NumeroSerie, e.Nome, e.Fabricante, e.PrecoAquisicao, e.DataFabricacao.ToShortDateString() // "17/04/2024"
+                );
+            }
 
             Console.ReadLine();
         }
