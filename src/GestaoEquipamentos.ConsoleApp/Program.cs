@@ -68,9 +68,9 @@
             switch(operacaoEscolhida)
             {
                 case '1': CadastrarEquipamento(); break;
-                case '2': break;
+                case '2': EditarEquipamento(); break;
                 case '3': break;
-                case '4': VisualizarEquipamentos(); break;
+                case '4': VisualizarEquipamentos(true); break;
 
                 default: break;
             }
@@ -108,7 +108,7 @@
             DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
 
             Equipamento equipamento = new Equipamento(nome, numeroSerie, fabricante, precoAquisicao, dataFabricacao);
-
+            
             equipamentos[contadorEquipamentosCadastrados++] = equipamento;
 
             Console.ForegroundColor = ConsoleColor.Green;
@@ -122,17 +122,21 @@
             Console.ReadLine();
         }
 
-        static void VisualizarEquipamentos()
+        static void VisualizarEquipamentos(bool exibirTitulo)
         {
-            Console.Clear();
 
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine("|        Gestão de Equipamentos        |");
-            Console.WriteLine("----------------------------------------");
+            if (exibirTitulo)
+            {
+                Console.Clear();
 
-            Console.WriteLine();
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine("|        Gestão de Equipamentos        |");
+                Console.WriteLine("----------------------------------------");
 
-            Console.WriteLine("Visualizando Equipamentos...");
+                Console.WriteLine();
+
+                Console.WriteLine("Visualizando Equipamentos...");
+            }
 
             Console.WriteLine();
 
@@ -150,11 +154,77 @@
 
                 Console.WriteLine(
                     "{0, -10} | {1, -15} | {2, -15} | {3, -10} | {4, -10}",
-                    e.NumeroSerie, e.Nome, e.Fabricante, e.PrecoAquisicao, e.DataFabricacao.ToShortDateString() // "17/04/2024"
+                    e.Id, e.Nome, e.Fabricante, e.PrecoAquisicao, e.DataFabricacao.ToShortDateString() // "17/04/2024"
                 );
             }
 
             Console.ReadLine();
+            Console.WriteLine();
+        }
+
+        public static void EditarEquipamento()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine("|        Gestão de Equipamentos        |");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine("Editando Equipamento...");
+
+            Console.WriteLine();
+
+            VisualizarEquipamentos(false);
+
+            Console.Write("Digite o ID do equipamento que deseja editar: ");
+            int equipamentoEscolhido = Convert.ToInt32(Console.ReadLine());
+
+            Equipamento equipamentoEncontrado = EncontrarEquipamentoPorId(equipamentoEscolhido);
+
+            Console.WriteLine();
+
+            Console.Write("Digite o nome do equipamento: ");
+            equipamentoEncontrado.Nome = Console.ReadLine();
+
+            Console.Write("Digite o número de série do equipamento: ");
+            equipamentoEncontrado.NumeroSerie = Console.ReadLine();
+
+            Console.Write("Digite o nome do fabricante do equipamento: ");
+            equipamentoEncontrado.Fabricante = Console.ReadLine();
+
+            Console.Write("Digite o preço de aquisição do equipamento: R$ ");
+            equipamentoEncontrado.PrecoAquisicao = Convert.ToDecimal(Console.ReadLine());
+
+            Console.Write("Digite a data de fabricação do equipamento (formato: dd-MM-aaaa): ");
+            equipamentoEncontrado.DataFabricacao = Convert.ToDateTime(Console.ReadLine());
+
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.WriteLine();
+
+            Console.WriteLine("O equipamento foi editado com sucesso!");
+
+            Console.ResetColor();
+
+            Console.ReadLine();
+        }
+
+        public static Equipamento EncontrarEquipamentoPorId(int idEscolhido)
+        {
+            for (int i = 0; i < equipamentos.Length; i++)
+            {
+                Equipamento e = equipamentos[i];
+
+                if (e == null)
+                    continue;
+
+                if (e.Id == idEscolhido)
+                    return e;
+            }
+
+            return null;
         }
 
         static void GerenciarChamados()
