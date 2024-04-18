@@ -8,6 +8,8 @@ namespace GestaoEquipamentos.ConsoleApp
         {
             Gestao gestao = new Gestao();
 
+            string teste = "";
+
             Menus menus = new Menus();
 
             GerenciaChamados chamados = new GerenciaChamados();
