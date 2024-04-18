@@ -12,7 +12,6 @@ namespace GestaoEquipamentos.ConsoleApp
 
         public Equipamento(string nome, string numeroSerie, string fabricante, decimal precoAquisicao, DateTime dataFabricacao)
         {
-            Id = GeradorId.GerarIdEquipamento();
             Nome = nome;
             NumeroSerie = numeroSerie;
             Fabricante = fabricante;

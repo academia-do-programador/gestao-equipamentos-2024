@@ -1,4 +1,6 @@
-﻿namespace GestaoEquipamentos.ConsoleApp
+﻿using System.ComponentModel.Design;
+
+namespace GestaoEquipamentos.ConsoleApp
 {
     internal class Program
     {
@@ -7,8 +9,10 @@
 
         static void Main(string[] args)
         {
-            equipamentos[contadorEquipamentosCadastrados++] =
-                new Equipamento("Notebook", "AEX-120", "Acer", 2000.00m, DateTime.Now);
+            Equipamento equipTest = new Equipamento("Notebook", "AEX-120", "Acer", 2000.00m, DateTime.Now);
+            equipTest.Id = GeradorId.GerarIdEquipamento();
+
+            equipamentos[contadorEquipamentosCadastrados++] = equipTest;
 
             bool opcaoSairEscolhida = false;
 
@@ -69,13 +73,11 @@
             {
                 case '1': CadastrarEquipamento(); break;
                 case '2': EditarEquipamento(); break;
-                case '3': break;
+                case '3': ExcluirEquipamento(); break;
                 case '4': VisualizarEquipamentos(true); break;
 
                 default: break;
             }
-
-            Console.ReadLine();
         }
 
         private static void CadastrarEquipamento()
@@ -104,22 +106,15 @@
             Console.Write("Digite o preço de aquisição do equipamento: R$ ");
             decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
 
-            Console.Write("Digite a data de fabricação do equipamento (formato: dd-MM-aaaa): ");
+            Console.Write("Digite a data de fabricação do equipamento (formato: dd/MM/aaaa): ");
             DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
 
             Equipamento equipamento = new Equipamento(nome, numeroSerie, fabricante, precoAquisicao, dataFabricacao);
-            
+            equipamento.Id = GeradorId.GerarIdEquipamento();
+
             equipamentos[contadorEquipamentosCadastrados++] = equipamento;
 
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            Console.WriteLine();
-
-            Console.WriteLine("O equipamento foi cadastrado com sucesso!");
-
-            Console.ResetColor();
-
-            Console.ReadLine();
+            ExibirMensagem("O equipamento foi cadastrado com sucesso!", ConsoleColor.Green);
         }
 
         static void VisualizarEquipamentos(bool exibirTitulo)
@@ -179,36 +174,105 @@
             VisualizarEquipamentos(false);
 
             Console.Write("Digite o ID do equipamento que deseja editar: ");
-            int equipamentoEscolhido = Convert.ToInt32(Console.ReadLine());
+            int idEquipamentoEscolhido = Convert.ToInt32(Console.ReadLine());
 
-            Equipamento equipamentoEncontrado = EncontrarEquipamentoPorId(equipamentoEscolhido);
+            if (!EquipamentoExiste(idEquipamentoEscolhido))
+            {
+                ExibirMensagem("O equipamento mencionado não existe!", ConsoleColor.DarkYellow);
+                return;
+            }
 
             Console.WriteLine();
 
             Console.Write("Digite o nome do equipamento: ");
-            equipamentoEncontrado.Nome = Console.ReadLine();
+            string nome = Console.ReadLine();
 
             Console.Write("Digite o número de série do equipamento: ");
-            equipamentoEncontrado.NumeroSerie = Console.ReadLine();
+            string numeroSerie = Console.ReadLine();
 
             Console.Write("Digite o nome do fabricante do equipamento: ");
-            equipamentoEncontrado.Fabricante = Console.ReadLine();
+            string fabricante = Console.ReadLine();
 
             Console.Write("Digite o preço de aquisição do equipamento: R$ ");
-            equipamentoEncontrado.PrecoAquisicao = Convert.ToDecimal(Console.ReadLine());
+            decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
 
             Console.Write("Digite a data de fabricação do equipamento (formato: dd-MM-aaaa): ");
-            equipamentoEncontrado.DataFabricacao = Convert.ToDateTime(Console.ReadLine());
+            DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
 
-            Console.ForegroundColor = ConsoleColor.Green;
+            Equipamento novoEquipamento =
+                new Equipamento(nome, numeroSerie, fabricante, precoAquisicao, dataFabricacao);
+
+            novoEquipamento.Id = idEquipamentoEscolhido;
+
+            for (int i = 0; i < equipamentos.Length; i++)
+            {
+                if (equipamentos[i] == null)
+                    continue;
+
+                else if (equipamentos[i].Id == idEquipamentoEscolhido)
+                {
+                    equipamentos[i] = novoEquipamento;
+                    break;
+                }
+            }
+
+            ExibirMensagem("O equipamento foi editado com sucesso!", ConsoleColor.Green);
+        }
+
+        public static void ExcluirEquipamento()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine("|        Gestão de Equipamentos        |");
+            Console.WriteLine("----------------------------------------");
 
             Console.WriteLine();
 
-            Console.WriteLine("O equipamento foi editado com sucesso!");
+            Console.WriteLine("Excluindo Equipamento...");
 
-            Console.ResetColor();
+            Console.WriteLine();
 
-            Console.ReadLine();
+            VisualizarEquipamentos(false);
+
+            Console.Write("Digite o ID do equipamento que deseja excluir: ");
+            int equipamentoEscolhido = Convert.ToInt32(Console.ReadLine());
+
+            if (!EquipamentoExiste(equipamentoEscolhido))
+            {
+                ExibirMensagem("O equipamento mencionado não existe!", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            for (int i = 0; i < equipamentos.Length; i++)
+            {
+                if (equipamentos[i] == null)
+                    continue;
+
+                else if (equipamentos[i].Id == equipamentoEscolhido)
+                {
+                    equipamentos[i] = null;
+                    break;
+                }
+            }
+
+            ExibirMensagem("O equipamento foi excluído com sucesso!", ConsoleColor.Green);
+        }
+
+        public static bool EquipamentoExiste(int idEquipamento)
+        {
+            for (int i = 0; i < equipamentos.Length; i++)
+            {
+                Equipamento e = equipamentos[i];
+
+                if (e == null)
+                    continue;
+
+                else if (e.Id == idEquipamento)
+                    return true;
+            }
+
+            return false;
         }
 
         public static Equipamento EncontrarEquipamentoPorId(int idEscolhido)
@@ -230,6 +294,19 @@
         static void GerenciarChamados()
         {
 
+        }
+
+        private static void ExibirMensagem(string mensagem, ConsoleColor cor)
+        {
+            Console.ForegroundColor = cor;
+
+            Console.WriteLine();
+
+            Console.WriteLine(mensagem);
+
+            Console.ResetColor();
+
+            Console.ReadLine();
         }
     }
 }
