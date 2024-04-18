@@ -1,19 +1,18 @@
 ﻿namespace GestaoEquipamentos.ConsoleApp
 {
-    public class Gestao
+    public partial class Gestao
     {
         //atributos 
-        public Itens[] itens = new Itens[100];
-        public int contador = 0;
+        public Itens[] itens = new Itens[20];
 
-        //atributos menu
-        public Menus menus = new Menus();
+        //atributo contador
+        public Contador contadorGestao = new Contador();
 
         public void Inserir()
         {
             Itens item = new Itens();
             Console.Clear();
-            item.id = contador;
+            item.id = contadorGestao.contador;
             Console.WriteLine("Cadastro de equipamentos!");
             Console.Write("Digite o nome do item: ");
             item.nome = Console.ReadLine();
@@ -25,9 +24,9 @@
             item.dataCriacao = Console.ReadLine();
             Console.Write("Digite o nome do fabricante do item: ");
             item.fabricante = Console.ReadLine();
-            itens[contador] = item;
-            contador++;
-            
+            itens[contadorGestao.contador] = item;
+            contadorGestao.IncrementaContador();
+
         }
 
         public void MostraLista()
@@ -95,20 +94,27 @@
 
         public void Exclusao(int id)
         {
-            Itens[] produtos = new Itens[0];
-            int ids = 0;
             var lista = itens.ToList();
 
             lista.RemoveAt(id);
 
             itens = lista.ToArray();
+        }
 
+        public bool VerificarItens()
+        {
+            bool auxiliar = false;
+            Itens[] produtos = new Itens[0];
+
+            produtos = ListaItens();
             for (int i = 0; i < produtos.Length; i++)
             {
                 Itens itens = produtos[i];
                 if (itens != null)
-                    itens.id = contador; ids++;
+                    auxiliar = true;
             }
+
+            return auxiliar;
         }
     }
 }

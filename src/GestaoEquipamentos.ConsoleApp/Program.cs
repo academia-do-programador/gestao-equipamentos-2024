@@ -8,11 +8,15 @@ namespace GestaoEquipamentos.ConsoleApp
         {
             Gestao gestao = new Gestao();
 
+            Menus menus = new Menus();
+
+            GerenciaChamados chamados = new GerenciaChamados();
+
             int option = 0;
 
             while (option != 3)
             {
-                gestao.menus.MenuInicial();
+                menus.MenuInicial();
                 option = Convert.ToInt32(Console.ReadLine());
 
                 switch (option)
@@ -21,39 +25,74 @@ namespace GestaoEquipamentos.ConsoleApp
                         int optionItem = 0;
                         while (optionItem != 5)
                         {
-                            gestao.menus.MenuLista();
+                            menus.MenuItens();
                             optionItem = Convert.ToInt32(Console.ReadLine());
 
                             switch (optionItem)
                             {
                                 case 1:
                                     gestao.Inserir();
-                                break;
+                                    break;
 
                                 case 2:
                                     gestao.MostraLista();
                                     Console.ReadLine();
-                                break;
+                                    break;
 
                                 case 3:
                                     gestao.Editar();
-                                break;
+                                    break;
 
                                 case 4:
                                     gestao.Excluir();
-                                break;
+                                    break;
                             }
 
 
                         }
-                        
-                    break;
-                    
+
+                        break;
+
                     case 2:
+
                         Console.Clear();
-                        Console.WriteLine("Recurso ainda não disponível");
-                        Console.ReadLine();
-                        continue;
+                        gestao.VerificarItens();
+                        int optionChamado = 0;
+
+                        if (gestao.VerificarItens())
+                        {
+                            while (optionChamado != 5)
+                            {
+                                menus.MenuChamado();
+                                optionChamado = Convert.ToInt32(Console.ReadLine());
+
+                                switch (optionChamado)
+                                {
+                                    case 1:
+                                        gestao.Inserir();
+                                        break;
+
+                                    case 2:
+                                        gestao.MostraLista();
+                                        Console.ReadLine();
+                                        break;
+
+                                    case 3:
+                                        gestao.Editar();
+                                        break;
+
+                                    case 4:
+                                        gestao.Excluir();
+                                        break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Você não possui nenhum produto cadastrado.");
+                            Console.ReadLine();
+                        }
+                        break;
                 }
             }
         }
