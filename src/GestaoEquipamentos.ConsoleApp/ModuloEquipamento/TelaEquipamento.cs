@@ -1,52 +1,53 @@
-﻿namespace GestaoEquipamentos.ConsoleApp
+﻿using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
+
+namespace GestaoEquipamentos.ConsoleApp
 {
-    public class Gestao
+    public partial class TelaEquipamento
     {
         //atributos 
-        public Itens[] itens = new Itens[100];
-        public int contador = 0;
+        public Equipamento[] equipamento = new Equipamento[20];
 
-        //atributos menu
-        public Menus menus = new Menus();
+        //atributo contador
+        public Contador contadorGestao = new Contador();
 
         public void Inserir()
         {
-            Itens item = new Itens();
+            Equipamento novoEquipamento = new Equipamento();
             Console.Clear();
-            item.id = contador;
+            novoEquipamento.id = contadorGestao.contador;
             Console.WriteLine("Cadastro de equipamentos!");
             Console.Write("Digite o nome do item: ");
-            item.nome = Console.ReadLine();
+            novoEquipamento.nome = Console.ReadLine();
             Console.Write("Digite o preço do item: ");
-            item.preco = Convert.ToDecimal(Console.ReadLine());
+            novoEquipamento.preco = Convert.ToDecimal(Console.ReadLine());
             Console.Write("Digite o numero de série do item: ");
-            item.numeroSerie = Console.ReadLine();
+            novoEquipamento.numeroSerie = Console.ReadLine();
             Console.Write("Digite a data de criação do item: ");
-            item.dataCriacao = Console.ReadLine();
+            novoEquipamento.dataCriacao = Console.ReadLine();
             Console.Write("Digite o nome do fabricante do item: ");
-            item.fabricante = Console.ReadLine();
-            itens[contador] = item;
-            contador++;
-            
+            novoEquipamento.fabricante = Console.ReadLine();
+            equipamento[contadorGestao.contador] = novoEquipamento;
+            contadorGestao.IncrementaContador();
+
         }
 
         public void MostraLista()
         {
-            Itens[] produtos = new Itens[0];
+            Equipamento[] produtos = new Equipamento[0];
             Console.Clear();
             Console.WriteLine("Itens da lista");
             Console.WriteLine($"ID | Nome | preco | Numerode Serie | Data de Fabricação | Fabricante");
             produtos = ListaItens();
             for (int i = 0; i < produtos.Length; i++)
             {
-                Itens itens = produtos[i];
-                if (itens != null)
-                    Console.WriteLine($"{itens.id} | {itens.nome} | {itens.preco} | {itens.numeroSerie} | {itens.dataCriacao} | {itens.fabricante}");
+                Equipamento equipamentos = produtos[i];
+                if (equipamentos != null)
+                    Console.WriteLine($"{equipamentos.id} | {equipamentos.nome} | {equipamentos.preco} | {equipamentos.numeroSerie} | {equipamentos.dataCriacao} | {equipamentos.fabricante}");
             }
         }
-        public Itens[] ListaItens()
+        public Equipamento[] ListaItens()
         {
-            return itens;
+            return equipamento;
         }
 
         public void Editar()
@@ -60,23 +61,23 @@
         }
         public void Edicao(int id)
         {
-            Itens item = new Itens();
+            Equipamento editaEquipamento = new Equipamento();
             Console.Clear();
-            item.id = id;
+            editaEquipamento.id = id;
             Console.WriteLine("Edição de equipamentos!");
             Console.Write("Digite o nome do item: ");
-            item.nome = Console.ReadLine();
+            editaEquipamento.nome = Console.ReadLine();
             Console.Write("Digite o preço do item: ");
-            item.preco = Convert.ToDecimal(Console.ReadLine());
+            editaEquipamento.preco = Convert.ToDecimal(Console.ReadLine());
             Console.Write("Digite o numero de série do item: ");
-            item.numeroSerie = Console.ReadLine();
+            editaEquipamento.numeroSerie = Console.ReadLine();
             Console.Write("Digite a data de criação do item: ");
-            item.dataCriacao = Console.ReadLine();
+            editaEquipamento.dataCriacao = Console.ReadLine();
             Console.Write("Digite o nome do fabricante do item: ");
-            item.fabricante = Console.ReadLine();
-            itens[id] = item;
+            editaEquipamento.fabricante = Console.ReadLine();
+            equipamento[id] = editaEquipamento;
 
-            itens.SetValue(item, id);
+            equipamento.SetValue(editaEquipamento, id);
         }
 
         public void Excluir()
@@ -95,20 +96,27 @@
 
         public void Exclusao(int id)
         {
-            Itens[] produtos = new Itens[0];
-            int ids = 0;
-            var lista = itens.ToList();
+            var lista = equipamento.ToList();
 
             lista.RemoveAt(id);
 
-            itens = lista.ToArray();
+            equipamento = lista.ToArray();
+        }
 
+        public bool VerificarItens()
+        {
+            bool auxiliar = false;
+            Equipamento[] produtos = new Equipamento[0];
+
+            produtos = ListaItens();
             for (int i = 0; i < produtos.Length; i++)
             {
-                Itens itens = produtos[i];
+                Equipamento itens = produtos[i];
                 if (itens != null)
-                    itens.id = contador; ids++;
+                    auxiliar = true;
             }
+
+            return auxiliar;
         }
     }
 }
