@@ -1,4 +1,6 @@
-﻿namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
+﻿using System.Data;
+
+namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
 {
     public class Equipamento
     {
@@ -6,7 +8,7 @@
         public string nome = "";
         public decimal preco;
         public string numeroSerie = "";
-        public string dataCriacao = "";
+        public DateTime  dataCriacao;
         public string fabricante = "";
     }
 }

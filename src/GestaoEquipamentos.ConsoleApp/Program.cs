@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using GestaoEquipamentos.ConsoleApp.ModuloChamado;
+﻿using GestaoEquipamentos.ConsoleApp.ModuloChamado;
 
 namespace GestaoEquipamentos.ConsoleApp
 {
@@ -36,70 +35,48 @@ namespace GestaoEquipamentos.ConsoleApp
             gestao.VerificarItens();
             int optionChamado = 0;
 
-            if (gestao.VerificarItens())
+            while (optionChamado != 5)
             {
-                while (optionChamado != 5)
+                if (gestao.VerificarItens() == false)
                 {
-                    menus.MenuChamado();
-                    optionChamado = Convert.ToInt32(Console.ReadLine());
-
-                    switch (optionChamado)
-                    {
-                        case 1:
-                            gestao.Inserir();
-                            break;
-
-                        case 2:
-                            gestao.MostraLista();
-                            Console.ReadLine();
-                            break;
-
-                        case 3:
-                            gestao.Editar();
-                            break;
-
-                        case 4:
-                            gestao.Excluir();
-                            break;
-                    }
+                    ExibirMensagem("Você não possui nenhum produto cadastrado.", ConsoleColor.Red);
+                    break;
                 }
+
+                menus.MenuChamado();
+                optionChamado = Convert.ToInt32(Console.ReadLine());
+
+                if (optionChamado == 1)
+                    gestao.Inserir();
+
+                if (optionChamado == 2)
+                    gestao.MostraLista();
+
+                if (optionChamado == 3)
+                    gestao.Editar();
+
+                if (optionChamado == 4)
+                    gestao.Excluir();
             }
-            else
-            {
-                Console.WriteLine("Você não possui nenhum produto cadastrado.");
-                Console.ReadLine();
-            }
+
+
         }
 
         private static void GestaoEquipamento(TelaEquipamento gestao, Menus menus)
         {
-            int optionItem = 0;
-            while (optionItem != 5)
+            int opcaoEquipamento = 0;
+            while (opcaoEquipamento != 5)
             {
                 menus.MenuItens();
-                optionItem = Convert.ToInt32(Console.ReadLine());
+                opcaoEquipamento = Convert.ToInt32(Console.ReadLine());
 
-                switch (optionItem)
-                {
-                    case 1:
-                        gestao.Inserir();
-                        break;
+                if (opcaoEquipamento == 1) gestao.Inserir();
 
-                    case 2:
-                        gestao.MostraLista();
-                        Console.ReadLine();
-                        break;
+                if (opcaoEquipamento == 2) gestao.MostraLista();
 
-                    case 3:
-                        gestao.Editar();
-                        break;
+                if (opcaoEquipamento == 3) gestao.Editar();
 
-                    case 4:
-                        gestao.Excluir();
-                        break;
-                }
-
-
+                if (opcaoEquipamento == 4) gestao.Excluir();
             }
         }
 
@@ -112,5 +89,15 @@ namespace GestaoEquipamentos.ConsoleApp
             return opcao;
         }
 
+        public static void ExibirMensagem(string mensagem, ConsoleColor cor)
+        {
+            Console.ForegroundColor = cor;
+
+            Console.WriteLine(mensagem);
+
+            Console.ResetColor();
+
+            Console.ReadLine();
+        }
     }
 }
