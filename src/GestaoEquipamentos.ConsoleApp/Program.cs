@@ -1,4 +1,5 @@
-﻿using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
+﻿using GestaoEquipamentos.ConsoleApp.ModuloChamado;
+using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoEquipamentos.ConsoleApp
 {
@@ -8,16 +9,20 @@ namespace GestaoEquipamentos.ConsoleApp
         {
             TelaEquipamento telaEquipamento = new TelaEquipamento();
 
+            TelaChamado telaChamado = new TelaChamado();
+            telaChamado.telaEquipamento = telaEquipamento;
+
             bool opcaoSairEscolhida = false;
 
-            while(!opcaoSairEscolhida)
+            while (!opcaoSairEscolhida)
             {
-                char opcaoEscolhida = ApresentarMenuPrincipal();
+                char opcaoPrincipalEscolhida = ApresentarMenuPrincipal();
+                char operacaoEscolhida;
 
-                switch (opcaoEscolhida)
+                switch (opcaoPrincipalEscolhida)
                 {
                     case '1':
-                        char operacaoEscolhida = telaEquipamento.ApresentarMenu();
+                        operacaoEscolhida = telaEquipamento.ApresentarMenu();
 
                         if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
                             break;
@@ -33,6 +38,26 @@ namespace GestaoEquipamentos.ConsoleApp
 
                         else if (operacaoEscolhida == '4')
                             telaEquipamento.VisualizarEquipamentos(true);
+
+                        break;
+
+                    case '2':
+                        operacaoEscolhida = telaChamado.ApresentarMenu();
+
+                        if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                            break;
+
+                        if (operacaoEscolhida == '1')
+                            telaChamado.CadastrarChamado();
+
+                        if (operacaoEscolhida == '2')
+                            telaChamado.EditarChamado();
+
+                        if (operacaoEscolhida == '3')
+                            telaChamado.ExcluirChamado();
+
+                        else if (operacaoEscolhida == '4')
+                            telaChamado.VisualizarChamados(true);
 
                         break;
 
@@ -54,7 +79,7 @@ namespace GestaoEquipamentos.ConsoleApp
             Console.WriteLine();
 
             Console.WriteLine("1 - Gerência de Equipamentos");
-            Console.WriteLine("2 - Controle de Chamados [Não Disponível]");
+            Console.WriteLine("2 - Gerência de Chamados");
             Console.WriteLine("S - Sair");
 
             Console.WriteLine();

@@ -2,7 +2,7 @@
 {
     public class TelaEquipamento
     {
-        RepositorioEquipamento repositorio = new RepositorioEquipamento();
+        public RepositorioEquipamento repositorio = new RepositorioEquipamento();
 
         public TelaEquipamento()
         {

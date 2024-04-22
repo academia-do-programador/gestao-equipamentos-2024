@@ -55,6 +55,22 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
             return equipamentos;
         }
 
+        public Equipamento SelecionarEquipamentoPorId(int id)
+        {
+            for (int i = 0; i < equipamentos.Length; i++)
+            {
+                Equipamento e = equipamentos[i];
+
+                if (e == null)
+                    continue;
+
+                else if (e.Id == id)
+                    return e;
+            }
+
+            return null;
+        }
+
         public bool ExisteEquipamento(int id)
         {
             for (int i = 0; i < equipamentos.Length; i++)
