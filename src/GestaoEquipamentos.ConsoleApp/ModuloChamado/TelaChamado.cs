@@ -1,4 +1,5 @@
-﻿using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
+﻿using GestaoEquipamentos.ConsoleApp.Compartilhado;
+using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 {
@@ -57,7 +58,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
                 return;
             }
 
-            repositorioChamado.CadastrarChamado(novoChamado);
+            repositorioChamado.Cadastrar(novoChamado);
 
             Program.ExibirMensagem("O chamado foi cadastrado com sucesso!", ConsoleColor.Green);
         }
@@ -79,7 +80,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
             Console.Write("Digite o ID do chamado que deseja editar: ");
             int idChamadoEscolhido = Convert.ToInt32(Console.ReadLine());
 
-            if (!repositorioChamado.ExisteChamado(idChamadoEscolhido))
+            if (!repositorioChamado.Existe(idChamadoEscolhido))
             {
                 Program.ExibirMensagem("O chamado mencionado não existe!", ConsoleColor.DarkYellow);
                 return;
@@ -97,7 +98,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
                 return;
             }
 
-            bool conseguiuEditar = repositorioChamado.EditarChamado(idChamadoEscolhido, novoChamado);
+            bool conseguiuEditar = repositorioChamado.Editar(idChamadoEscolhido, novoChamado);
 
             if (!conseguiuEditar)
             {
@@ -127,13 +128,13 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
             Console.Write("Digite o ID do chamado que deseja excluir: ");
             int idChamadoEscolhido = Convert.ToInt32(Console.ReadLine());
 
-            if (!repositorioChamado.ExisteChamado(idChamadoEscolhido))
+            if (!repositorioChamado.Existe(idChamadoEscolhido))
             {
                 Program.ExibirMensagem("O chamado mencionado não existe!", ConsoleColor.DarkYellow);
                 return;
             }
 
-            bool conseguiuExcluir = repositorioChamado.ExcluirChamado(idChamadoEscolhido);
+            bool conseguiuExcluir = repositorioChamado.Excluir(idChamadoEscolhido);
 
             if (!conseguiuExcluir)
             {
@@ -196,18 +197,16 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
                 "Id", "Título", "Equipamento", "Dias em Aberto"
             );
 
-            Chamado[] chamadosCadastrados = repositorioChamado.SelecionarChamados();
+            Entidade[] chamadosCadastrados = repositorioChamado.SelecionarTodos();
 
-            for (int i = 0; i < chamadosCadastrados.Length; i++)
+            foreach (Chamado chamado in chamadosCadastrados)
             {
-                Chamado e = chamadosCadastrados[i];
-
-                if (e == null)
+                if (chamado == null)
                     continue;
 
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -20} | {3, -10}",
-                    e.Id, e.Titulo, e.EquipamentoSelecionado.Nome, e.QuantidadeDiasEmAberto
+                    chamado.Id, chamado.Titulo, chamado.EquipamentoSelecionado.Nome, chamado.QuantidadeDiasEmAberto
                 );
             }
 

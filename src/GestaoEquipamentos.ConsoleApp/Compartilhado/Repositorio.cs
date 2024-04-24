@@ -4,9 +4,11 @@
     {
         protected Entidade[] registros = new Entidade[100];
 
+        protected int contadorId = 1;
+
         public void Cadastrar(Entidade novoRegistro)
         {
-            novoRegistro.Id = GeradorId.GerarIdEquipamento();
+            novoRegistro.Id = contadorId++;
 
             RegistrarItem(novoRegistro);
         }
