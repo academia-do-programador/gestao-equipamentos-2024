@@ -143,10 +143,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
             Console.Write("Digite a descrição do chamado: ");
             string descricao = Console.ReadLine();
 
-            Console.Write("Digite a data de abertura do chamado: ");
-            DateTime dataAbertura = Convert.ToDateTime(Console.ReadLine());
-
-            Chamado novoChamado = new Chamado(titulo, descricao, dataAbertura, equipamentoSelecionado);
+            Chamado novoChamado = new Chamado(titulo, descricao, equipamentoSelecionado);
 
             return novoChamado;
         }
@@ -170,7 +167,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 
             Console.WriteLine(
                 "{0, -10} | {1, -20} | {2, -20} | {3, -10}",
-                "Id", "Título", "Equipamento", "Data de Aquisição"
+                "Id", "Título", "Equipamento", "Dias em Aberto"
             );
 
             Chamado[] chamadosCadastrados = repositorioChamado.SelecionarChamados();
@@ -184,7 +181,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -20} | {3, -10}",
-                    e.Id, e.Titulo, e.EquipamentoSelecionado.Nome, e.DataAbertura.ToShortDateString()
+                    e.Id, e.Titulo, e.EquipamentoSelecionado.Nome, e.QuantidadeDiasEmAberto
                 );
             }
 
