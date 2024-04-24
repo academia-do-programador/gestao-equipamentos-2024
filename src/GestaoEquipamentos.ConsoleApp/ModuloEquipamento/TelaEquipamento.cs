@@ -50,26 +50,30 @@
 
             Console.WriteLine();
 
-            Console.Write("Digite o nome do equipamento: ");
-            string nome = Console.ReadLine();
+            Equipamento equipamento = ObterEquipamento();
 
-            Console.Write("Digite o número de série do equipamento: ");
-            string numeroSerie = Console.ReadLine();
+            string[] erros = equipamento.Validar();
 
-            Console.Write("Digite o nome do fabricante do equipamento: ");
-            string fabricante = Console.ReadLine();
-
-            Console.Write("Digite o preço de aquisição do equipamento: R$ ");
-            decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
-
-            Console.Write("Digite a data de fabricação do equipamento (formato: dd/MM/aaaa): ");
-            DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
-
-            Equipamento equipamento = new Equipamento(nome, numeroSerie, fabricante, precoAquisicao, dataFabricacao);
+            if (erros.Length > 0)
+            {
+                ApresentarErros(erros);
+                return;
+            }
 
             repositorio.CadastrarEquipamento(equipamento);
 
             Program.ExibirMensagem("O equipamento foi cadastrado com sucesso!", ConsoleColor.Green);
+        }
+
+        private void ApresentarErros(string[] erros)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            for (int i = 0; i < erros.Length; i++)
+                Console.WriteLine(erros[i]);
+
+            Console.ResetColor();
+            Console.ReadLine();
         }
 
         public void EditarEquipamento()
@@ -99,25 +103,17 @@
 
             Console.WriteLine();
 
-            Console.Write("Digite o nome do equipamento: ");
-            string nome = Console.ReadLine();
+            Equipamento equipamento = ObterEquipamento();
 
-            Console.Write("Digite o número de série do equipamento: ");
-            string numeroSerie = Console.ReadLine();
+            string[] erros = equipamento.Validar();
 
-            Console.Write("Digite o nome do fabricante do equipamento: ");
-            string fabricante = Console.ReadLine();
+            if (erros.Length > 0)
+            {
+                ApresentarErros(erros);
+                return;
+            }
 
-            Console.Write("Digite o preço de aquisição do equipamento: R$ ");
-            decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
-
-            Console.Write("Digite a data de fabricação do equipamento (formato: dd-MM-aaaa): ");
-            DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
-
-            Equipamento novoEquipamento =
-                new Equipamento(nome, numeroSerie, fabricante, precoAquisicao, dataFabricacao);
-
-            bool conseguiuEditar = repositorio.EditarEquipamento(idEquipamentoEscolhido, novoEquipamento);
+            bool conseguiuEditar = repositorio.EditarEquipamento(idEquipamentoEscolhido, equipamento);
 
             if (!conseguiuEditar)
             {
@@ -203,6 +199,27 @@
 
             Console.ReadLine();
             Console.WriteLine();
+        }
+
+        private Equipamento ObterEquipamento()
+        {
+            Console.Write("Digite o nome do equipamento: ");
+            string nome = Console.ReadLine();
+
+            Console.Write("Digite o número de série do equipamento: ");
+            string numeroSerie = Console.ReadLine();
+
+            Console.Write("Digite o nome do fabricante do equipamento: ");
+            string fabricante = Console.ReadLine();
+
+            Console.Write("Digite o preço de aquisição do equipamento: R$ ");
+            decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
+
+            Console.Write("Digite a data de fabricação do equipamento (formato: dd/MM/aaaa): ");
+            DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
+
+            Equipamento equipamento = new Equipamento(nome, numeroSerie, fabricante, precoAquisicao, dataFabricacao);
+            return equipamento;
         }
     }
 }

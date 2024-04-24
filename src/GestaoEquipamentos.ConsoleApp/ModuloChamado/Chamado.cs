@@ -32,5 +32,35 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
             dataAbertura = DateTime.Now;
             EquipamentoSelecionado = equipamentoSelecionado;
         }
+
+        public string[] Validar()
+        {
+            string[] erros = new string[3];
+            int contadorErros = 0;
+
+            if (string.IsNullOrEmpty(Titulo))
+            {
+                erros[0] = "O título é obrigatório";
+                contadorErros++;
+            }
+
+            if (string.IsNullOrEmpty(Descricacao))
+            {
+                erros[1] = "A descrição é obrigatória";
+                contadorErros++;
+            }
+
+            if (EquipamentoSelecionado == null)
+            {
+                erros[2] = ("O equipamento é obrigatório");
+                contadorErros++;
+            }
+
+            string[] errosFiltrados = new string[contadorErros];
+
+            Array.Copy(erros, errosFiltrados, contadorErros);
+
+            return errosFiltrados;
+        }
     }
 }

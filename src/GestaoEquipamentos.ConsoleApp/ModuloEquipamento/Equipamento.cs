@@ -17,5 +17,35 @@
             PrecoAquisicao = precoAquisicao;
             DataFabricacao = dataFabricacao;
         }
+
+        public string[] Validar()
+        {
+            string[] erros = new string[3];
+            int contadorErros = 0;
+
+            if (Nome.Length < 3)
+            {
+                erros[0] = "O Nome do Equipamento precisa conter ao menos 3 caracteres";
+                contadorErros++;
+            }
+
+            if (Fabricante.Length < 3)
+            {
+                erros[1] = "O Fabricante do Equipamento precisa conter ao menos 3 caracteres";
+                contadorErros++;
+            }
+
+            if (!NumeroSerie.Contains('-'))
+            {
+                erros[2] = "O Número de Série do Equipamento precisa conter o caractere '-'.";
+                contadorErros++;
+            }
+
+            string[] errosFiltrados = new string[contadorErros];
+
+            Array.Copy(erros, errosFiltrados, contadorErros);
+
+            return errosFiltrados;
+        }
     }
 }

@@ -49,6 +49,14 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 
             Chamado novoChamado = ObterChamado();
 
+            string[] erros = novoChamado.Validar();
+
+            if (erros.Length > 0)
+            {
+                ApresentarErros(erros);
+                return;
+            }
+
             repositorioChamado.CadastrarChamado(novoChamado);
 
             Program.ExibirMensagem("O chamado foi cadastrado com sucesso!", ConsoleColor.Green);
@@ -80,6 +88,14 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
             Console.WriteLine();
 
             Chamado novoChamado = ObterChamado();
+
+            string[] erros = novoChamado.Validar();
+
+            if (erros.Length > 0)
+            {
+                ApresentarErros(erros);
+                return;
+            }
 
             bool conseguiuEditar = repositorioChamado.EditarChamado(idChamadoEscolhido, novoChamado);
 
@@ -132,8 +148,19 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
         {
             telaEquipamento.VisualizarEquipamentos(false);
 
-            Console.Write("Digite o ID do equipamento defeituoso: ");
-            int idEquipamento = Convert.ToInt32(Console.ReadLine());
+
+            bool conseguiuConverter = false;
+
+            int idEquipamento = 0;
+
+            while (!conseguiuConverter)
+            {
+                Console.Write("Digite o ID do equipamento defeituoso: ");
+                conseguiuConverter = int.TryParse(Console.ReadLine(), out idEquipamento);
+
+                if (!conseguiuConverter)
+                    Console.WriteLine("Por favor, informe um ID válido!\n");
+            }
 
             Equipamento equipamentoSelecionado = telaEquipamento.repositorio.SelecionarEquipamentoPorId(idEquipamento);
 
@@ -187,6 +214,17 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 
             Console.ReadLine();
             Console.WriteLine();
+        }
+
+        private void ApresentarErros(string[] erros)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            for (int i = 0; i < erros.Length; i++)
+                Console.WriteLine(erros[i]);
+
+            Console.ResetColor();
+            Console.ReadLine();
         }
     }
 }
