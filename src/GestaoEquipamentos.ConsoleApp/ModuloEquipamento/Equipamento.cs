@@ -1,8 +1,9 @@
-﻿namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
+﻿using GestaoEquipamentos.ConsoleApp.Compartilhado;
+
+namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
 {
-    public class Equipamento
+    public class Equipamento : Entidade
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public string NumeroSerie { get; set; }
         public string Fabricante { get; set; }

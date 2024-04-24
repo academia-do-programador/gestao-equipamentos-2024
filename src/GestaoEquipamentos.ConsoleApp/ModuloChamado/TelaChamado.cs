@@ -148,7 +148,6 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
         {
             telaEquipamento.VisualizarEquipamentos(false);
 
-
             bool conseguiuConverter = false;
 
             int idEquipamento = 0;
@@ -162,7 +161,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
                     Console.WriteLine("Por favor, informe um ID válido!\n");
             }
 
-            Equipamento equipamentoSelecionado = telaEquipamento.repositorio.SelecionarEquipamentoPorId(idEquipamento);
+            Equipamento equipamentoSelecionado = (Equipamento)telaEquipamento.repositorio.SelecionarPorId(idEquipamento);
 
             Console.Write("Digite o título do chamado: ");
             string titulo = Console.ReadLine();
