@@ -2,7 +2,7 @@
 
 namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
 {
-    public class Equipamento : Entidade
+    public class Equipamento : EntidadeBase
     {
         public string Nome { get; set; }
         public string NumeroSerie { get; set; }
@@ -19,7 +19,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
             DataFabricacao = dataFabricacao;
         }
 
-        public string[] Validar()
+        public override string[] Validar()
         {
             string[] erros = new string[3];
             int contadorErros = 0;

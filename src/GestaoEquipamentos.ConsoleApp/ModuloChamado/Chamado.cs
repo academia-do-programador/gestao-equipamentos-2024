@@ -3,7 +3,7 @@ using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 {
-    public class Chamado : Entidade
+    public class Chamado : EntidadeBase
     {
         public string Descricacao { get; set; }
         public string Titulo { get; set; }
@@ -33,7 +33,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
             EquipamentoSelecionado = equipamentoSelecionado;
         }
 
-        public string[] Validar()
+        public override string[] Validar()
         {
             string[] erros = new string[3];
             int contadorErros = 0;

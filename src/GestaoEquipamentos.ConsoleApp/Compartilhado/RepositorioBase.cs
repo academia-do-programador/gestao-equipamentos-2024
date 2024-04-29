@@ -1,19 +1,19 @@
 ﻿namespace GestaoEquipamentos.ConsoleApp.Compartilhado
 {
-    public class Repositorio
+    public abstract class RepositorioBase
     {
-        protected Entidade[] registros = new Entidade[100];
+        protected EntidadeBase[] registros = new EntidadeBase[100];
 
         protected int contadorId = 1;
 
-        public void Cadastrar(Entidade novoRegistro)
+        public void Cadastrar(EntidadeBase novoRegistro)
         {
             novoRegistro.Id = contadorId++;
 
             RegistrarItem(novoRegistro);
         }
 
-        public bool Editar(int id, Entidade novaEntidade)
+        public bool Editar(int id, EntidadeBase novaEntidade)
         {
             novaEntidade.Id = id;
 
@@ -50,16 +50,16 @@
             return false;
         }
 
-        public Entidade[] SelecionarTodos()
+        public EntidadeBase[] SelecionarTodos()
         {
             return registros;
         }
 
-        public Entidade SelecionarPorId(int id)
+        public EntidadeBase SelecionarPorId(int id)
         {
             for (int i = 0; i < registros.Length; i++)
             {
-                Entidade e = registros[i];
+                EntidadeBase e = registros[i];
 
                 if (e == null)
                     continue;
@@ -75,7 +75,7 @@
         {
             for (int i = 0; i < registros.Length; i++)
             {
-                Entidade e = registros[i];
+                EntidadeBase e = registros[i];
 
                 if (e == null)
                     continue;
@@ -87,7 +87,7 @@
             return false;
         }
 
-        protected void RegistrarItem(Entidade novoRegistro)
+        protected void RegistrarItem(EntidadeBase novoRegistro)
         {
             for (int i = 0; i < registros.Length; i++)
             {

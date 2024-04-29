@@ -2,7 +2,7 @@
 
 namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 {
-    public class RepositorioChamado : Repositorio
+    public class RepositorioChamado : RepositorioBase
     {
 
     }

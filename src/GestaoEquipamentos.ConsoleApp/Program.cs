@@ -7,9 +7,21 @@ namespace GestaoEquipamentos.ConsoleApp
     {
         static void Main(string[] args)
         {
+            RepositorioEquipamento repositorioEquipamento = new RepositorioEquipamento();
+
             TelaEquipamento telaEquipamento = new TelaEquipamento();
+            telaEquipamento.tipoEntidade = "Equipamento";
+            telaEquipamento.repositorio = repositorioEquipamento;
+
+            telaEquipamento.RegistrarEquipamentosTeste();
+
+            RepositorioChamado repositorioChamado = new RepositorioChamado();
 
             TelaChamado telaChamado = new TelaChamado();
+            telaChamado.tipoEntidade = "Chamado";
+            telaChamado.repositorio = repositorioChamado;
+
+            telaChamado.repositorioEquipamento = repositorioEquipamento;
             telaChamado.telaEquipamento = telaEquipamento;
 
             bool opcaoSairEscolhida = false;
@@ -28,16 +40,16 @@ namespace GestaoEquipamentos.ConsoleApp
                             break;
 
                         if (operacaoEscolhida == '1')
-                            telaEquipamento.CadastrarEquipamento();
+                            telaEquipamento.Registrar();
 
                         else if (operacaoEscolhida == '2')
-                            telaEquipamento.EditarEquipamento();
+                            telaEquipamento.Editar();
 
                         else if (operacaoEscolhida == '3')
-                            telaEquipamento.ExcluirEquipamento();
+                            telaEquipamento.Excluir();
 
                         else if (operacaoEscolhida == '4')
-                            telaEquipamento.VisualizarEquipamentos(true);
+                            telaEquipamento.VisualizarRegistros(true);
 
                         break;
 
@@ -48,16 +60,16 @@ namespace GestaoEquipamentos.ConsoleApp
                             break;
 
                         if (operacaoEscolhida == '1')
-                            telaChamado.CadastrarChamado();
+                            telaChamado.Registrar();
 
                         if (operacaoEscolhida == '2')
-                            telaChamado.EditarChamado();
+                            telaChamado.Editar();
 
                         if (operacaoEscolhida == '3')
-                            telaChamado.ExcluirChamado();
+                            telaChamado.Excluir();
 
                         else if (operacaoEscolhida == '4')
-                            telaChamado.VisualizarChamados(true);
+                            telaChamado.VisualizarRegistros(true);
 
                         break;
 
