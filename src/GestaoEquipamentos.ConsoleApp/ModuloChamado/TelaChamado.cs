@@ -8,36 +8,6 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
         public RepositorioEquipamento repositorioEquipamento = null;
         public TelaEquipamento telaEquipamento = null;
 
-        protected override EntidadeBase ObterRegistro()
-        {
-            telaEquipamento.VisualizarRegistros(false);
-
-            bool conseguiuConverter = false;
-
-            int idEquipamento = 0;
-
-            while (!conseguiuConverter)
-            {
-                Console.Write("Digite o ID do equipamento defeituoso: ");
-                conseguiuConverter = int.TryParse(Console.ReadLine(), out idEquipamento);
-
-                if (!conseguiuConverter)
-                    Console.WriteLine("Por favor, informe um ID válido!\n");
-            }
-
-            Equipamento equipamentoSelecionado = (Equipamento)repositorioEquipamento.SelecionarPorId(idEquipamento);
-
-            Console.Write("Digite o título do chamado: ");
-            string titulo = Console.ReadLine();
-
-            Console.Write("Digite a descrição do chamado: ");
-            string descricao = Console.ReadLine();
-
-            Chamado novoChamado = new Chamado(titulo, descricao, equipamentoSelecionado);
-
-            return novoChamado;
-        }
-
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -69,5 +39,36 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
             Console.ReadLine();
             Console.WriteLine();
         }
+
+        protected override EntidadeBase ObterRegistro()
+        {
+            telaEquipamento.VisualizarRegistros(false);
+
+            bool conseguiuConverter = false;
+
+            int idEquipamento = 0;
+
+            while (!conseguiuConverter)
+            {
+                Console.Write("Digite o ID do equipamento defeituoso: ");
+                conseguiuConverter = int.TryParse(Console.ReadLine(), out idEquipamento);
+
+                if (!conseguiuConverter)
+                    Console.WriteLine("Por favor, informe um ID válido!\n");
+            }
+
+            Equipamento equipamentoSelecionado = (Equipamento)repositorioEquipamento.SelecionarPorId(idEquipamento);
+
+            Console.Write("Digite o título do chamado: ");
+            string titulo = Console.ReadLine();
+
+            Console.Write("Digite a descrição do chamado: ");
+            string descricao = Console.ReadLine();
+
+            Chamado novoChamado = new Chamado(titulo, descricao, equipamentoSelecionado);
+
+            return novoChamado;
+        }
+
     }
 }

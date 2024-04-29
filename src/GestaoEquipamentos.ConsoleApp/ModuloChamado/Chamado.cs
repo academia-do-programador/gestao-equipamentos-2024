@@ -39,22 +39,13 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
             int contadorErros = 0;
 
             if (string.IsNullOrEmpty(Titulo))
-            {
-                erros[0] = "O título é obrigatório";
-                contadorErros++;
-            }
+                erros[contadorErros++] = "O título é obrigatório";
 
             if (string.IsNullOrEmpty(Descricacao))
-            {
-                erros[1] = "A descrição é obrigatória";
-                contadorErros++;
-            }
+                erros[contadorErros++] = "A descrição é obrigatória";
 
             if (EquipamentoSelecionado == null)
-            {
-                erros[2] = ("O equipamento é obrigatório");
-                contadorErros++;
-            }
+                erros[contadorErros++] = "O equipamento é obrigatório";
 
             string[] errosFiltrados = new string[contadorErros];
 

@@ -25,22 +25,13 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
             int contadorErros = 0;
 
             if (Nome.Length < 3)
-            {
-                erros[0] = "O Nome do Equipamento precisa conter ao menos 3 caracteres";
-                contadorErros++;
-            }
+                erros[contadorErros++] = "O Nome do Equipamento precisa conter ao menos 3 caracteres";
 
             if (Fabricante.Length < 3)
-            {
-                erros[1] = "O Fabricante do Equipamento precisa conter ao menos 3 caracteres";
-                contadorErros++;
-            }
+                erros[contadorErros++] = "O Fabricante do Equipamento precisa conter ao menos 3 caracteres";
 
             if (!NumeroSerie.Contains('-'))
-            {
-                erros[2] = "O Número de Série do Equipamento precisa conter o caractere '-'.";
-                contadorErros++;
-            }
+                erros[contadorErros++] = "O Número de Série do Equipamento precisa conter o caractere '-'.";
 
             string[] errosFiltrados = new string[contadorErros];
 
