@@ -1,4 +1,5 @@
-﻿using GestaoEquipamentos.ConsoleApp.ModuloChamado;
+﻿using GestaoEquipamentos.ConsoleApp.Compartilhado;
+using GestaoEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoEquipamentos.ConsoleApp
@@ -24,96 +25,47 @@ namespace GestaoEquipamentos.ConsoleApp
             telaChamado.repositorioEquipamento = repositorioEquipamento;
             telaChamado.telaEquipamento = telaEquipamento;
 
-            bool opcaoSairEscolhida = false;
-
-            while (!opcaoSairEscolhida)
+            while (true)
             {
-                char opcaoPrincipalEscolhida = ApresentarMenuPrincipal();
-                char operacaoEscolhida;
+                char opcaoPrincipalEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
 
-                switch (opcaoPrincipalEscolhida)
-                {
-                    case '1':
-                        operacaoEscolhida = telaEquipamento.ApresentarMenu();
+                if (opcaoPrincipalEscolhida == 'S' || opcaoPrincipalEscolhida == 's')
+                    break;
 
-                        if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
-                            break;
+                TelaBase tela = ObterTela(telaEquipamento, telaChamado, opcaoPrincipalEscolhida);
 
-                        if (operacaoEscolhida == '1')
-                            telaEquipamento.Registrar();
+                char operacaoEscolhida = tela.ApresentarMenu();
 
-                        else if (operacaoEscolhida == '2')
-                            telaEquipamento.Editar();
+                if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                    continue;
 
-                        else if (operacaoEscolhida == '3')
-                            telaEquipamento.Excluir();
+                if (operacaoEscolhida == '1')
+                    tela.Registrar();
 
-                        else if (operacaoEscolhida == '4')
-                            telaEquipamento.VisualizarRegistros(true);
+                else if (operacaoEscolhida == '2')
+                    tela.Editar();
 
-                        break;
+                else if (operacaoEscolhida == '3')
+                    tela.Excluir();
 
-                    case '2':
-                        operacaoEscolhida = telaChamado.ApresentarMenu();
-
-                        if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
-                            break;
-
-                        if (operacaoEscolhida == '1')
-                            telaChamado.Registrar();
-
-                        if (operacaoEscolhida == '2')
-                            telaChamado.Editar();
-
-                        if (operacaoEscolhida == '3')
-                            telaChamado.Excluir();
-
-                        else if (operacaoEscolhida == '4')
-                            telaChamado.VisualizarRegistros(true);
-
-                        break;
-
-                    default: opcaoSairEscolhida = true; break;
-                }
+                else if (operacaoEscolhida == '4')
+                    tela.VisualizarRegistros(true);
             }
 
             Console.ReadLine();
         }
 
-        private static char ApresentarMenuPrincipal()
+        static TelaBase ObterTela(TelaEquipamento telaEquipamento, TelaChamado telaChamado, char opcaoPrincipalEscolhida)
         {
-            Console.Clear();
+            TelaBase tela = null;
 
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine("|        Gestão de Equipamentos        |");
-            Console.WriteLine("----------------------------------------");
+            if (opcaoPrincipalEscolhida == '1')
+                tela = telaEquipamento;
 
-            Console.WriteLine();
+            else if (opcaoPrincipalEscolhida == '2')
+                tela = telaChamado;
 
-            Console.WriteLine("1 - Gerência de Equipamentos");
-            Console.WriteLine("2 - Gerência de Chamados");
-            Console.WriteLine("S - Sair");
-
-            Console.WriteLine();
-
-            Console.Write("Escolha uma das opções: ");
-
-            char opcaoEscolhida = Console.ReadLine()[0];
-
-            return opcaoEscolhida;
-        }
-
-        public static void ExibirMensagem(string mensagem, ConsoleColor cor)
-        {
-            Console.ForegroundColor = cor;
-
-            Console.WriteLine();
-
-            Console.WriteLine(mensagem);
-
-            Console.ResetColor();
-
-            Console.ReadLine();
+            return tela;
         }
     }
 }
