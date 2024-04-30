@@ -14,7 +14,7 @@ namespace GestaoEquipamentos.ConsoleApp
             telaEquipamento.tipoEntidade = "Equipamento";
             telaEquipamento.repositorio = repositorioEquipamento;
 
-            telaEquipamento.RegistrarEquipamentosTeste();
+            telaEquipamento.RegistrarEquipamentoTeste();
 
             RepositorioChamado repositorioChamado = new RepositorioChamado();
 
@@ -24,6 +24,8 @@ namespace GestaoEquipamentos.ConsoleApp
 
             telaChamado.repositorioEquipamento = repositorioEquipamento;
             telaChamado.telaEquipamento = telaEquipamento;
+
+            telaChamado.RegistrarChamadoTeste();
 
             while (true)
             {

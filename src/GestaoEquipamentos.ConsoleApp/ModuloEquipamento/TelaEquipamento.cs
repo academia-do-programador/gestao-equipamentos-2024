@@ -60,9 +60,11 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
             return equipamento;
         }
 
-        public void RegistrarEquipamentosTeste()
+        public void RegistrarEquipamentoTeste()
         {
-            Equipamento equipTest = new Equipamento("Notebook", "AEX-120", "Acer", 2000.00m, DateTime.Now);
+            DateTime dataDoisAnosAtras = DateTime.Now.AddYears(-2);
+
+            Equipamento equipTest = new Equipamento("Notebook", "AEX-120", "Acer", 2000.00m, dataDoisAnosAtras);
 
             repositorio.Cadastrar(equipTest);
         }

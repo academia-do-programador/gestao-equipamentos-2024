@@ -29,8 +29,16 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
         {
             Titulo = titulo;
             Descricacao = descricacao;
-            dataAbertura = DateTime.Now;
             EquipamentoSelecionado = equipamentoSelecionado;
+            dataAbertura = DateTime.Now;
+        }
+
+        public Chamado(string titulo, string descricacao, Equipamento equipamentoSelecionado, DateTime dataAbertura)
+        {
+            Titulo = titulo;
+            Descricacao = descricacao;
+            EquipamentoSelecionado = equipamentoSelecionado;
+            this.dataAbertura = dataAbertura;
         }
 
         public override string[] Validar()
