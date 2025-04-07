@@ -50,23 +50,19 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
             string fabricante = Console.ReadLine();
 
             Console.Write("Digite o preço de aquisição do equipamento: R$ ");
-            decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
+
+            decimal precoAquisicao;
+            decimal.TryParse(Console.ReadLine(), out precoAquisicao);             
 
             Console.Write("Digite a data de fabricação do equipamento (formato: dd/MM/aaaa): ");
-            DateTime dataFabricacao = Convert.ToDateTime(Console.ReadLine());
+            DateTime dataFabricacao; 
+            DateTime.TryParse(Console.ReadLine(), out dataFabricacao);
 
             Equipamento equipamento = new Equipamento(nome, numeroSerie, fabricante, precoAquisicao, dataFabricacao);
 
             return equipamento;
         }
 
-        public void RegistrarEquipamentoTeste()
-        {
-            DateTime dataDoisAnosAtras = DateTime.Now.AddYears(-2);
-
-            Equipamento equipTest = new Equipamento("Notebook", "AEX-120", "Acer", 2000.00m, dataDoisAnosAtras);
-
-            repositorio.Cadastrar(equipTest);
-        }
+       
     }
 }

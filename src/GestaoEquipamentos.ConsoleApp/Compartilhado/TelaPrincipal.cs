@@ -1,8 +1,38 @@
-﻿namespace GestaoEquipamentos.ConsoleApp.Compartilhado
+﻿using GestaoEquipamentos.ConsoleApp.ModuloChamado;
+using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
+
+namespace GestaoEquipamentos.ConsoleApp.Compartilhado
 {
-    public static class TelaPrincipal
+    public class TelaPrincipal
     {
-        public static char ApresentarMenuPrincipal()
+        private char opcaoEscolhida;
+        private TelaEquipamento telaEquipamento;
+        private TelaChamado telaChamado;
+
+        public TelaPrincipal()
+        {
+            RepositorioEquipamento repositorioEquipamento = new RepositorioEquipamento();
+
+            telaEquipamento = new TelaEquipamento();
+            telaEquipamento.tipoEntidade = "Equipamento";
+            telaEquipamento.repositorio = repositorioEquipamento;
+
+            Equipamento equipamento = new Equipamento("Notebook", "AEX-120", "Acer", 2000.00m, DateTime.Now.AddYears(-1));
+            repositorioEquipamento.Cadastrar(equipamento);
+
+            RepositorioChamado repositorioChamado = new RepositorioChamado();
+
+            telaChamado = new TelaChamado();
+            telaChamado.tipoEntidade = "Chamado";
+            telaChamado.repositorio = repositorioChamado;
+
+            telaChamado.repositorioEquipamento = repositorioEquipamento;
+            telaChamado.telaEquipamento = telaEquipamento;                        
+
+            repositorioChamado.Cadastrar(new Chamado("Tela quebrada", "A tela do notebook não está ligando", equipamento, DateTime.Now));
+        }       
+
+        public void ApresentarMenu()
         {
             Console.Clear();
 
@@ -20,9 +50,25 @@
 
             Console.Write("Escolha uma das opções: ");
 
-            char opcaoEscolhida = Console.ReadLine()[0];
+            opcaoEscolhida = Console.ReadLine()[0];            
+        }
 
-            return opcaoEscolhida;
+        public TelaBase ObterTela()
+        {
+            TelaBase tela = null;
+
+            if (opcaoEscolhida == '1')
+                tela = telaEquipamento;
+
+            else if (opcaoEscolhida == '2')
+                tela = telaChamado;
+
+            return tela;
+        }
+
+        public bool OpcaoSairSelecionada()
+        {
+            return opcaoEscolhida == 'S' || opcaoEscolhida == 's';
         }
     }
 }

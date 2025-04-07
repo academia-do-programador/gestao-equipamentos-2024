@@ -1,73 +1,40 @@
 ﻿using GestaoEquipamentos.ConsoleApp.Compartilhado;
-using GestaoEquipamentos.ConsoleApp.ModuloChamado;
-using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
 
-namespace GestaoEquipamentos.ConsoleApp
+namespace GestaoEquipamentos.ConsoleApp;
+
+public class Program
 {
-    public class Program
-    {
-        static void Main(string[] args)
+    static void Main(string[] args)
+    {       
+        TelaPrincipal telaPrincipal = new TelaPrincipal();
+
+        while (true)
         {
-            RepositorioEquipamento repositorioEquipamento = new RepositorioEquipamento();
+            telaPrincipal.ApresentarMenu();
 
-            TelaEquipamento telaEquipamento = new TelaEquipamento();
-            telaEquipamento.tipoEntidade = "Equipamento";
-            telaEquipamento.repositorio = repositorioEquipamento;
+            if (telaPrincipal.OpcaoSairSelecionada())
+                break;
 
-            telaEquipamento.RegistrarEquipamentoTeste();
+            TelaBase tela = telaPrincipal.ObterTela();
 
-            RepositorioChamado repositorioChamado = new RepositorioChamado();
+            char operacaoEscolhida = tela.ApresentarMenu();
 
-            TelaChamado telaChamado = new TelaChamado();
-            telaChamado.tipoEntidade = "Chamado";
-            telaChamado.repositorio = repositorioChamado;
+            if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                continue;
 
-            telaChamado.repositorioEquipamento = repositorioEquipamento;
-            telaChamado.telaEquipamento = telaEquipamento;
+            if (operacaoEscolhida == '1')
+                tela.Registrar();
 
-            telaChamado.RegistrarChamadoTeste();
+            else if (operacaoEscolhida == '2')
+                tela.Editar();
 
-            while (true)
-            {
-                char opcaoPrincipalEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
+            else if (operacaoEscolhida == '3')
+                tela.Excluir();
 
-                if (opcaoPrincipalEscolhida == 'S' || opcaoPrincipalEscolhida == 's')
-                    break;
-
-                TelaBase tela = ObterTela(telaEquipamento, telaChamado, opcaoPrincipalEscolhida);
-
-                char operacaoEscolhida = tela.ApresentarMenu();
-
-                if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
-                    continue;
-
-                if (operacaoEscolhida == '1')
-                    tela.Registrar();
-
-                else if (operacaoEscolhida == '2')
-                    tela.Editar();
-
-                else if (operacaoEscolhida == '3')
-                    tela.Excluir();
-
-                else if (operacaoEscolhida == '4')
-                    tela.VisualizarRegistros(true);
-            }
-
-            Console.ReadLine();
+            else if (operacaoEscolhida == '4')
+                tela.VisualizarRegistros(true);
         }
 
-        static TelaBase ObterTela(TelaEquipamento telaEquipamento, TelaChamado telaChamado, char opcaoPrincipalEscolhida)
-        {
-            TelaBase tela = null;
-
-            if (opcaoPrincipalEscolhida == '1')
-                tela = telaEquipamento;
-
-            else if (opcaoPrincipalEscolhida == '2')
-                tela = telaChamado;
-
-            return tela;
-        }
-    }
+        Console.ReadLine();
+    }   
 }

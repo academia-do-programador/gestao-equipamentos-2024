@@ -45,6 +45,7 @@
             if (erros.Length > 0)
             {
                 ApresentarErros(erros);
+                Registrar();
                 return;
             }
 
@@ -63,14 +64,15 @@
 
             VisualizarRegistros(false);
 
-            Console.Write($"Digite o ID do {tipoEntidade} que deseja editar: ");
-            int idEntidadeEscolhida = Convert.ToInt32(Console.ReadLine());
-
-            if (!repositorio.Existe(idEntidadeEscolhida))
+            int id = 0;
+            do 
             {
-                ExibirMensagem($"O {tipoEntidade} mencionado não existe!", ConsoleColor.DarkYellow);
-                return;
-            }
+                Console.Write($"Digite o ID do {tipoEntidade} que deseja editar: ");
+                id = Convert.ToInt32(Console.ReadLine());
+
+                ExibirMensagem($"O {tipoEntidade} mencionado não existe!", ConsoleColor.DarkYellow);                
+
+            } while (repositorio.Existe(id) == false);
 
             Console.WriteLine();
 
@@ -81,10 +83,11 @@
             if (erros.Length > 0)
             {
                 ApresentarErros(erros);
+                Editar();
                 return;
             }
 
-            bool conseguiuEditar = repositorio.Editar(idEntidadeEscolhida, entidade);
+            bool conseguiuEditar = repositorio.Editar(id, entidade);
 
             if (!conseguiuEditar)
             {
@@ -105,16 +108,17 @@
 
             VisualizarRegistros(false);
 
-            Console.Write($"Digite o ID do {tipoEntidade} que deseja excluir: ");
-            int idRegistroEscolhido = Convert.ToInt32(Console.ReadLine());
-
-            if (!repositorio.Existe(idRegistroEscolhido))
+            int id = 0;
+            do
             {
-                ExibirMensagem($"O {tipoEntidade} mencionado não existe!", ConsoleColor.DarkYellow);
-                return;
-            }
+                Console.Write($"Digite o ID do {tipoEntidade} que deseja excluir: ");
+                id = Convert.ToInt32(Console.ReadLine());
 
-            bool conseguiuExcluir = repositorio.Excluir(idRegistroEscolhido);
+                ExibirMensagem($"O {tipoEntidade} mencionado não existe!", ConsoleColor.DarkYellow);
+
+            } while (repositorio.Existe(id) == false);
+
+            bool conseguiuExcluir = repositorio.Excluir(id);
 
             if (!conseguiuExcluir)
             {
@@ -156,6 +160,8 @@
             Console.WriteLine();
 
             Console.WriteLine(mensagem);
+
+            Console.WriteLine();
 
             Console.ResetColor();
 

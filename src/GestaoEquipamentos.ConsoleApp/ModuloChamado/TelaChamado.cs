@@ -40,17 +40,6 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
             Console.WriteLine();
         }
 
-        public void RegistrarChamadoTeste()
-        {
-            DateTime dataDoisDiasAtras = DateTime.Now.AddDays(-2);
-
-            Equipamento equipTest = (Equipamento)repositorioEquipamento.SelecionarTodos()[0];
-
-            Chamado chamado = new Chamado("Tela quebrada", "A tela do notebook não está ligando", equipTest, dataDoisDiasAtras);
-
-            repositorio.Cadastrar(chamado);
-        }
-
         protected override EntidadeBase ObterRegistro()
         {
             telaEquipamento.VisualizarRegistros(false);

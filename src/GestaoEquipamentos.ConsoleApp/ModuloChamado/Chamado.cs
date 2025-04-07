@@ -5,10 +5,13 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 {
     public class Chamado : EntidadeBase
     {
+        private DateTime dataAbertura;
+
         public string Descricacao { get; set; }
         public string Titulo { get; set; }
 
-        private DateTime dataAbertura;
+        public Equipamento EquipamentoSelecionado { get; set; }
+
         public int QuantidadeDiasEmAberto
         {
             get
@@ -21,9 +24,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 
                 return diferencaNumero;
             }
-        }
-
-        public Equipamento EquipamentoSelecionado;
+        }        
 
         public Chamado(string titulo, string descricacao, Equipamento equipamentoSelecionado)
         {
