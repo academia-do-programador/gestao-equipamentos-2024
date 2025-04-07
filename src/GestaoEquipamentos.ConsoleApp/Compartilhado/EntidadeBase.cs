@@ -1,6 +1,6 @@
 ﻿namespace GestaoEquipamentos.ConsoleApp.Compartilhado
 {
-    public class Entidade
+    public class EntidadeBase
     {
         public int Id { get; set; }
     }

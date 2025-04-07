@@ -197,7 +197,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
                 "Id", "Título", "Equipamento", "Dias em Aberto"
             );
 
-            Entidade[] chamadosCadastrados = repositorioChamado.SelecionarTodos();
+            EntidadeBase[] chamadosCadastrados = repositorioChamado.SelecionarTodos();
 
             foreach (Chamado chamado in chamadosCadastrados)
             {

@@ -2,7 +2,7 @@
 
 namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
 {
-    public class Equipamento : Entidade
+    public class Equipamento : EntidadeBase
     {
         public string Nome { get; set; }
         public string NumeroSerie { get; set; }

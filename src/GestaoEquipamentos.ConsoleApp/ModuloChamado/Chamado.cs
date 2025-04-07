@@ -3,7 +3,7 @@ using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
 {
-    public class Chamado : Entidade
+    public class Chamado : EntidadeBase
     {
         public string Descricacao { get; set; }
         public string Titulo { get; set; }

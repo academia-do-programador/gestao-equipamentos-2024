@@ -2,7 +2,7 @@
 
 namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
 {
-    public class RepositorioEquipamento : Repositorio
+    public class RepositorioEquipamento : RepositorioBase
     {
 
     }

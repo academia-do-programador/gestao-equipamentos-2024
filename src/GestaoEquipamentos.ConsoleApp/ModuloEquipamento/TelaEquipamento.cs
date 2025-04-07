@@ -184,7 +184,7 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
                 "Id", "Nome", "Fabricante", "Preço", "Data de Fabricação"
             );
 
-            Entidade[] equipamentosCadastrados = repositorio.SelecionarTodos();
+            EntidadeBase[] equipamentosCadastrados = repositorio.SelecionarTodos();
 
             // casting / cast
             foreach (Equipamento equip in equipamentosCadastrados)
