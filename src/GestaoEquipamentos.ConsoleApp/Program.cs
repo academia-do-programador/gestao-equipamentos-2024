@@ -34,40 +34,47 @@ namespace GestaoEquipamentos.ConsoleApp
                 if (opcaoPrincipalEscolhida == 'S' || opcaoPrincipalEscolhida == 's')
                     break;
 
-                TelaBase tela = ObterTela(telaEquipamento, telaChamado, opcaoPrincipalEscolhida);
+                if (opcaoPrincipalEscolhida == '1')
+                {                    
+                    char operacaoEscolhida = telaEquipamento.ApresentarMenu();
 
-                char operacaoEscolhida = tela.ApresentarMenu();
+                    if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                        continue;
 
-                if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
-                    continue;
+                    if (operacaoEscolhida == '1')
+                        telaEquipamento.Registrar();
 
-                if (operacaoEscolhida == '1')
-                    tela.Registrar();
+                    else if (operacaoEscolhida == '2')
+                        telaEquipamento.Editar();
 
-                else if (operacaoEscolhida == '2')
-                    tela.Editar();
+                    else if (operacaoEscolhida == '3')
+                        telaEquipamento.Excluir();
 
-                else if (operacaoEscolhida == '3')
-                    tela.Excluir();
+                    else if (operacaoEscolhida == '4')
+                        telaEquipamento.VisualizarRegistros(true);
+                }
+                else if (opcaoPrincipalEscolhida == '2')
+                {
+                    char operacaoEscolhida = telaChamado.ApresentarMenu();
 
-                else if (operacaoEscolhida == '4')
-                    tela.VisualizarRegistros(true);
+                    if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                        continue;
+
+                    if (operacaoEscolhida == '1')
+                        telaChamado.Registrar();
+
+                    else if (operacaoEscolhida == '2')
+                        telaChamado.Editar();
+
+                    else if (operacaoEscolhida == '3')
+                        telaChamado.Excluir();
+
+                    else if (operacaoEscolhida == '4')
+                        telaChamado.VisualizarRegistros(true);
+                }             
             }
 
             Console.ReadLine();
-        }
-
-        static TelaBase ObterTela(TelaEquipamento telaEquipamento, TelaChamado telaChamado, char opcaoPrincipalEscolhida)
-        {
-            TelaBase tela = null;
-
-            if (opcaoPrincipalEscolhida == '1')
-                tela = telaEquipamento;
-
-            else if (opcaoPrincipalEscolhida == '2')
-                tela = telaChamado;
-
-            return tela;
-        }
+        }      
     }
 }
