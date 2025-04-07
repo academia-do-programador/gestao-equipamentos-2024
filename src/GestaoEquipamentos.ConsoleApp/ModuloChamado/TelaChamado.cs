@@ -36,7 +36,6 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloChamado
                 );
             }
 
-            Console.ReadLine();
             Console.WriteLine();
         }
 

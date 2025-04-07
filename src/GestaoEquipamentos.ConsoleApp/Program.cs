@@ -32,7 +32,10 @@ public class Program
                 tela.Excluir();
 
             else if (operacaoEscolhida == '4')
+            {
                 tela.VisualizarRegistros(true);
+                Console.ReadLine();
+            }
         }
 
         Console.ReadLine();

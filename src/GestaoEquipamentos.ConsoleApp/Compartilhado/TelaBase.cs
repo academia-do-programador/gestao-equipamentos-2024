@@ -64,15 +64,14 @@
 
             VisualizarRegistros(false);
 
-            int id = 0;
-            do 
+            Console.Write($"Digite o ID do {tipoEntidade} que deseja editar: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            if (repositorio.Existe(id) == false)
             {
-                Console.Write($"Digite o ID do {tipoEntidade} que deseja editar: ");
-                id = Convert.ToInt32(Console.ReadLine());
-
-                ExibirMensagem($"O {tipoEntidade} mencionado não existe!", ConsoleColor.DarkYellow);                
-
-            } while (repositorio.Existe(id) == false);
+                ExibirMensagem($"O {tipoEntidade} mencionado não existe!", ConsoleColor.DarkYellow);
+                Editar();
+            }
 
             Console.WriteLine();
 

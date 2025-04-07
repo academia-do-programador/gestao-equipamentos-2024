@@ -10,7 +10,17 @@
         {
             novoRegistro.Id = contadorId++;
 
-            RegistrarItem(novoRegistro);
+            for (int i = 0; i < registros.Length; i++)
+            {
+                if (registros[i] != null)
+                    continue;
+
+                else
+                {
+                    registros[i] = novoRegistro;
+                    break;
+                }
+            }
         }
 
         public bool Editar(int id, EntidadeBase novaEntidade)
@@ -85,21 +95,6 @@
             }
 
             return false;
-        }
-
-        protected void RegistrarItem(EntidadeBase novoRegistro)
-        {
-            for (int i = 0; i < registros.Length; i++)
-            {
-                if (registros[i] != null)
-                    continue;
-
-                else
-                {
-                    registros[i] = novoRegistro;
-                    break;
-                }
-            }
-        }
+        }       
     }
 }

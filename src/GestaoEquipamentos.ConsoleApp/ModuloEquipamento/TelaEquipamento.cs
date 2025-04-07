@@ -34,7 +34,6 @@ namespace GestaoEquipamentos.ConsoleApp.ModuloEquipamento
                 );
             }
 
-            Console.ReadLine();
             Console.WriteLine();
         }
 
