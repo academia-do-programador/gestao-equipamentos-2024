@@ -1,4 +1,5 @@
-﻿using GestaoEquipamentos.ConsoleApp.ModuloChamado;
+﻿using GestaoEquipamentos.ConsoleApp.Compartilhado;
+using GestaoEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoEquipamentos.ConsoleApp.ModuloEquipamento;
 
 namespace GestaoEquipamentos.ConsoleApp
@@ -16,7 +17,7 @@ namespace GestaoEquipamentos.ConsoleApp
 
             while (!opcaoSairEscolhida)
             {
-                char opcaoPrincipalEscolhida = ApresentarMenuPrincipal();
+                char opcaoPrincipalEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
                 char operacaoEscolhida;
 
                 switch (opcaoPrincipalEscolhida)
@@ -68,28 +69,7 @@ namespace GestaoEquipamentos.ConsoleApp
             Console.ReadLine();
         }
 
-        private static char ApresentarMenuPrincipal()
-        {
-            Console.Clear();
-
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine("|        Gestão de Equipamentos        |");
-            Console.WriteLine("----------------------------------------");
-
-            Console.WriteLine();
-
-            Console.WriteLine("1 - Gerência de Equipamentos");
-            Console.WriteLine("2 - Gerência de Chamados");
-            Console.WriteLine("S - Sair");
-
-            Console.WriteLine();
-
-            Console.Write("Escolha uma das opções: ");
-
-            char opcaoEscolhida = Console.ReadLine()[0];
-
-            return opcaoEscolhida;
-        }
+      
 
         public static void ExibirMensagem(string mensagem, ConsoleColor cor)
         {
