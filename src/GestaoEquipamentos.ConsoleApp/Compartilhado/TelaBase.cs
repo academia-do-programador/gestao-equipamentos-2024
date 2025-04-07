@@ -124,9 +124,7 @@
 
             ExibirMensagem($"O {tipoEntidade} foi excluído com sucesso!", ConsoleColor.Green);
         }
-
-        public abstract void VisualizarRegistros(bool exibirTitulo);
-
+       
         protected void ApresentarErros(string[] erros)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -163,5 +161,7 @@
         }
 
         protected abstract EntidadeBase ObterRegistro();
+
+        public abstract void VisualizarRegistros(bool exibirTitulo);
     }
 }
