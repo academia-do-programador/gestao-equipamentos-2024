@@ -23,7 +23,6 @@
                 Console.WriteLine();
 
                 Console.WriteLine("1 - Gerência de Equipamentos");
-                Console.WriteLine("2 - Controle de Chamados [Não Disponível]");
                 Console.WriteLine("S - Sair");
 
                 Console.WriteLine();
